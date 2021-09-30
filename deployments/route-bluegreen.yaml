@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    app: green
+  name: bluegreen
+  namespace: customer-bluegreen
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: green

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: blue
+    app.kubernetes.io/component: blue
+    app.kubernetes.io/instance: blue
+  name: blue
+  namespace: customer-bluegreen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: blue
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deployment: blue
+    spec:
+      containers:
+      - image: quay.io/gpte-devops-automation/ocp-probe:v0.4
+        name: blue
+        ports:
+        - containerPort: 8080
